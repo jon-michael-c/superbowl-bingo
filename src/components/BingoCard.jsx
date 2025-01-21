@@ -79,7 +79,7 @@ function BingoCard() {
   }, []);
 
   return (
-    <div className="p-4 aspect-square w-[70%] h-auto bg-glass my-8 mx-auto ">
+    <div className="p-4 aspect-square w-[70%] h-auto bg-glass my-8 mx-auto max-w-[1000px]">
       <div className="grid grid-cols-5 border-4 border-white border-solid   overflow-hidden">
         {items.map((item, index) => (
           <BingoItem
