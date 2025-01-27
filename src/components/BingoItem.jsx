@@ -5,7 +5,7 @@ function BingoItem(props) {
   return (
     <div
       onClick={onClick}
-      className={`relative  text-center flex items-center justify-center aspect-square transition-all border-solid border-8 border-white ${
+      className={`relative  text-center flex items-center justify-center aspect-square transition-all border-solid border-4 border-white ${
         marked ? "bg-red-300" : "bg-glass"
       }`}
     >

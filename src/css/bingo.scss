@@ -1,0 +1,6 @@
+.bingo {
+  clip-path: circle(0%);
+  &.active {
+    clip-path: circle(100%);
+  }
+}
