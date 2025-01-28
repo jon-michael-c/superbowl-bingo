@@ -3,14 +3,14 @@ import React from "react";
 function BingoItem(props) {
   const { children, marked, onClick } = props;
   return (
-    <div
+    <button
       onClick={onClick}
-      className={`relative  text-center flex items-center justify-center aspect-square transition-all border-solid border-4 border-white ${
-        marked ? "bg-red-300" : "bg-glass"
+      className={`relative cursor-pointer  text-midnight text-center flex items-center justify-center aspect-square transition-all border-solid border-[0.5px] border-black ${
+        marked ? "bg-yellow" : ""
       }`}
     >
       {children}
-    </div>
+    </button>
   );
 }
 

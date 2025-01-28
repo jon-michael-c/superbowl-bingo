@@ -1,16 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import BingoItem from "./BingoItem";
 import BingoItems from "../utils/bingoItems";
 import Bingo from "./Bingo";
 import Confettie from "./Confettie";
+import Button from "./Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faShuffle,
+  faDownload,
+  faCopy,
+} from "@fortawesome/free-solid-svg-icons";
+import html2canvas from "html2canvas"; // For saving the card as an image
 
 function BingoCard() {
   const [items, setItems] = useState([]);
   const [marked, setMarked] = useState(Array(25).fill(false));
   const [bingo, setBingo] = useState(false);
+  const cardRef = useRef(null); // Ref for the bingo card element
 
+  // Function to handle marking/unmarking a bingo item
   const handleMark = (index) => () => {
-    // Toggle the 'marked' state for the clicked index
     setMarked((prevMarked) => {
       const updated = [...prevMarked];
       updated[index] = !updated[index];
@@ -18,6 +27,7 @@ function BingoCard() {
     });
   };
 
+  // Function to check for a bingo
   const checkBingo = () => {
     // Check rows
     for (let i = 0; i < 5; i++) {
@@ -57,43 +67,94 @@ function BingoCard() {
     return false;
   };
 
+  // Effect to check for bingo whenever the marked state changes
   useEffect(() => {
     if (checkBingo()) {
       setBingo(true);
     }
   }, [marked]);
 
+  // Effect to initialize the bingo card on mount
   useEffect(() => {
-    // Generate items once on mount
     const bingoItems = new BingoItems();
     bingoItems.shuffle();
-
-    // Take the first 25 items for the bingo card
     setItems(bingoItems.items.slice(0, 25));
-
-    // Set free space
     setMarked((prevMarked) => {
       const updated = [...prevMarked];
-      updated[12] = true;
+      updated[12] = true; // Set the center cell as marked (free space)
       return updated;
     });
-
-    // No dependencies -> this runs only once
   }, []);
+
+  // Function to shuffle the bingo items
+  const handleShuffle = () => {
+    const bingoItems = new BingoItems();
+    bingoItems.shuffle();
+    setItems(bingoItems.items.slice(0, 25));
+    setMarked(Array(25).fill(false)); // Reset marked cells
+    setMarked((prevMarked) => {
+      const updated = [...prevMarked];
+      updated[12] = true; // Set the center cell as marked (free space)
+      return updated;
+    });
+    setBingo(false); // Reset bingo state
+  };
+
+  // Function to save the bingo card as an image
+  const handleSaveAsImage = () => {
+    if (cardRef.current) {
+      html2canvas(cardRef.current).then((canvas) => {
+        const link = document.createElement("a");
+        link.download = "bingo-card.png";
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+    }
+  };
+
+  // Function to copy the current URL to the clipboard
+  const handleCopyURL = () => {
+    const url = window.location.href;
+    navigator.clipboard
+      .writeText(url)
+      .then(() => alert("URL copied to clipboard!"))
+      .catch(() => alert("Failed to copy URL."));
+  };
 
   return (
     <>
-      <div className="p-1 aspect-square w-[70%] h-auto bg-glass my-8 mx-auto max-w-[1000px]">
-        <div className="grid grid-cols-5 border-2 border-white border-solid   overflow-hidden">
-          {items.map((item, index) => (
-            <BingoItem
-              onClick={handleMark(index)}
-              marked={marked[index]}
-              key={index}
-            >
-              {item}
-            </BingoItem>
-          ))}
+      <div className="w-full max-w-[600px] mx-auto relative">
+        <div>
+          <Button>How to Play</Button>
+        </div>
+        <div
+          className="aspect-square w-full h-auto bg-white my-8"
+          ref={cardRef} // Attach ref to the bingo card
+        >
+          <div className="grid grid-cols-5 overflow-hidden">
+            {items.map((item, index) => (
+              <BingoItem
+                onClick={handleMark(index)}
+                marked={marked[index]}
+                key={index}
+              >
+                {item}
+              </BingoItem>
+            ))}
+          </div>
+        </div>
+        <div className="absolute right-0 bottom-0 -mx-64">
+          <div className="w-[200px] grid gap-3">
+            <Button onClick={handleShuffle}>
+              <FontAwesomeIcon icon={faShuffle} /> Shuffle
+            </Button>
+            <Button onClick={handleSaveAsImage}>
+              <FontAwesomeIcon icon={faDownload} /> Save as Image
+            </Button>
+            <Button onClick={handleCopyURL}>
+              <FontAwesomeIcon icon={faCopy} /> Copy URL
+            </Button>
+          </div>
         </div>
       </div>
       <Bingo bingo={bingo} />
