@@ -1,6 +1,7 @@
 import Lottie from "lottie-react";
 import React, { useState } from "react";
 import Confettie from "./Confettie";
+import Button from "./Button";
 
 function Bingo(props) {
   const { bingo } = props;
@@ -18,9 +19,10 @@ function Bingo(props) {
           </h1>
           <p>Congrats!</p>
           <p>From Team Leibowitz</p>
+          <Button onClick={() => window.location.reload()}>Play Again</Button>
         </div>
       </div>
-      <div className="absolute top-0 left-0 w-full h-full">
+      <div className="absolute top-0 left-0 w-full h-full z-[-1]">
         {bingo && <Confettie />}
       </div>
     </div>

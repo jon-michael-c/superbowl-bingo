@@ -137,23 +137,30 @@ function BingoCard() {
                 onClick={handleMark(index)}
                 marked={marked[index]}
                 key={index}
+                freespace={index === 12}
               >
                 {item}
               </BingoItem>
             ))}
           </div>
         </div>
-        <div className="absolute right-0 bottom-0 -mx-64">
-          <div className="w-[200px] grid gap-3">
-            <Button onClick={handleShuffle}>
-              <FontAwesomeIcon icon={faShuffle} /> Shuffle
-            </Button>
-            <Button onClick={handleSaveAsImage}>
-              <FontAwesomeIcon icon={faDownload} /> Save as Image
-            </Button>
-            <Button onClick={handleCopyURL}>
-              <FontAwesomeIcon icon={faCopy} /> Copy URL
-            </Button>
+        <div className="lg:absolute lg:right-0 lg:bottom-0 lg:-mx-64">
+          <div className="w-full lg:w-[200px] justify-center flex gap-3 lg:flex-col">
+            <div className="w-fit sm:w-full">
+              <Button onClick={handleShuffle}>
+                <FontAwesomeIcon icon={faShuffle} /> Shuffle
+              </Button>
+            </div>
+            <div className="w-fit sm:w-full">
+              <Button onClick={handleSaveAsImage}>
+                <FontAwesomeIcon icon={faDownload} /> Save as Image
+              </Button>
+            </div>
+            <div className="w-fit sm:w-full">
+              <Button onClick={handleCopyURL}>
+                <FontAwesomeIcon icon={faCopy} /> Copy URL
+              </Button>
+            </div>
           </div>
         </div>
       </div>
