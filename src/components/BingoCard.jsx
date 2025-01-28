@@ -158,7 +158,6 @@ function BingoCard() {
         </div>
       </div>
       <Bingo bingo={bingo} />
-      <Confettie />
     </>
   );
 }

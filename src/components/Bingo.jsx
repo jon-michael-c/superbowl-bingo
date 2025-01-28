@@ -1,5 +1,6 @@
 import Lottie from "lottie-react";
 import React, { useState } from "react";
+import Confettie from "./Confettie";
 
 function Bingo(props) {
   const { bingo } = props;
@@ -18,6 +19,9 @@ function Bingo(props) {
           <p>Congrats!</p>
           <p>From Team Leibowitz</p>
         </div>
+      </div>
+      <div className="absolute top-0 left-0 w-full h-full">
+        {bingo && <Confettie />}
       </div>
     </div>
   );
