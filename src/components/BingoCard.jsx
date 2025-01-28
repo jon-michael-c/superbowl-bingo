@@ -128,7 +128,7 @@ function BingoCard() {
           <Button>How to Play</Button>
         </div>
         <div
-          className="aspect-square w-full h-auto bg-white my-8"
+          className="aspect-[3/4] sm:aspect-square w-full h-auto bg-white my-8"
           ref={cardRef} // Attach ref to the bingo card
         >
           <div className="grid grid-cols-5 overflow-hidden">
