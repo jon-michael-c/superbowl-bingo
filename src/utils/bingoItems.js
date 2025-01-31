@@ -6,7 +6,7 @@ export default class BingoItems {
     let items = [];
 
     itemsJSON.forEach((item) => {
-      items.push(item["Your new bingo item"]);
+      items.push(item["Item"]);
     });
 
     this.items = items;

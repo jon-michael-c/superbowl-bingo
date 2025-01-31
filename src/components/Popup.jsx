@@ -14,7 +14,7 @@ function Popup(props) {
       style={isActive ? popStyles : {}} // Add inline styles
     >
       <div
-        className={`relative bg-white text-midnight w-full max-w-[600px] mx-auto my-auto p-8 border border-solid border-midnight scale-[0.001] transition-transform duration-[0.4s] ease-[cubic-bezier(.47,1.64,.41,.8)]`}
+        className={`relative bg-white text-midnight w-[93%] max-w-[600px] mx-auto my-auto p-8 border border-solid border-midnight scale-[0.001] transition-transform duration-[0.4s] ease-[cubic-bezier(.47,1.64,.41,.8)]`}
         style={isActive ? { transform: "scale(1)" } : {}} // Add inline styles
       >
         <button
