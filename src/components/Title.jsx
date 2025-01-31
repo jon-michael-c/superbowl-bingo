@@ -9,8 +9,8 @@ export const Title = () => {
           src="/stamp.webp"
           alt="stamp"
         />
-        <div className="sm:flex sm:gap-0">
-          <p className="text-yellow text-[25px] sm:text-[35px] leading-[1] sm:leading-[1.35] uppercase tracking-widest">
+        <div className="sm:flex sm:gap-2 items-center">
+          <p className="text-yellow text-[25px] sm:text-[35px] leading-[1] sm:leading-[1.30]  uppercase tracking-widest">
             Super
             <br className="hidden sm:block" />
             Bowl
