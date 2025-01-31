@@ -11,11 +11,13 @@ import {
   faCopy,
 } from "@fortawesome/free-solid-svg-icons";
 import html2canvas from "html2canvas"; // For saving the card as an image
+import Popup from "./Popup";
 
 function BingoCard() {
   const [items, setItems] = useState([]);
   const [marked, setMarked] = useState(Array(25).fill(false));
   const [bingo, setBingo] = useState(false);
+  const [htplay, setHtplay] = useState(false);
   const cardRef = useRef(null); // Ref for the bingo card element
 
   // Function to handle marking/unmarking a bingo item
@@ -125,7 +127,13 @@ function BingoCard() {
     <>
       <div className="w-full max-w-[600px] mx-auto relative">
         <div>
-          <Button>How to Play</Button>
+          <Button
+            onClick={() => {
+              setHtplay(true);
+            }}
+          >
+            How to Play
+          </Button>
         </div>
         <div
           className="aspect-[3/4] sm:aspect-square w-full h-auto bg-white my-8"
@@ -165,6 +173,21 @@ function BingoCard() {
         </div>
       </div>
       <Bingo bingo={bingo} />
+      <Popup isActive={htplay} onClose={() => setHtplay(false)}>
+        <p className="text-purple text-xl font-bold mb-4">How to Play</p>
+        <p className="font-semibold text-xl">Play in your browser</p>
+        <ol>
+          <li> Mark squares: Click once to mark, double-click to unmark.</li>
+          <li>
+            New card: Refresh the page or hit the "Shuffle" button for a fresh
+            card.
+          </li>
+          <li>
+            Play with friends: Hit the “Share” button to copy this page's URL
+            and send it to your friends—they'll get their own unique card!
+          </li>
+        </ol>
+      </Popup>
     </>
   );
 }
