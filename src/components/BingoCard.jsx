@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import BingoItem from "./BingoItem";
 import BingoItems from "../utils/bingoItems";
 import Bingo from "./Bingo";
-import Confettie from "./Confettie";
+import { Logo } from "./Logo";
 import Button from "./Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,12 +12,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import html2canvas from "html2canvas"; // For saving the card as an image
 import Popup from "./Popup";
+import { Title } from "./Title";
 
 function BingoCard() {
   const [items, setItems] = useState([]);
   const [marked, setMarked] = useState(Array(25).fill(false));
   const [bingo, setBingo] = useState(false);
   const [htplay, setHtplay] = useState(false);
+  const [shPop, setShPop] = useState(false);
   const cardRef = useRef(null); // Ref for the bingo card element
 
   // Function to handle marking/unmarking a bingo item
@@ -100,6 +102,7 @@ function BingoCard() {
       return updated;
     });
     setBingo(false); // Reset bingo state
+    setShPop(false);
   };
 
   // Function to save the bingo card as an image
@@ -126,7 +129,8 @@ function BingoCard() {
   return (
     <>
       <div className="w-full max-w-[600px] mx-auto relative">
-        <div>
+        <Title />
+        <div className="px-[24px] sm:px-0">
           <Button
             onClick={() => {
               setHtplay(true);
@@ -140,22 +144,33 @@ function BingoCard() {
           ref={cardRef} // Attach ref to the bingo card
         >
           <div className="grid grid-cols-5 overflow-hidden">
-            {items.map((item, index) => (
-              <BingoItem
-                onClick={handleMark(index)}
-                marked={marked[index]}
-                key={index}
-                freespace={index === 12}
-              >
-                {item}
-              </BingoItem>
-            ))}
+            {items.map((item, index) =>
+              index != 12 ? (
+                <BingoItem
+                  onClick={handleMark(index)}
+                  marked={marked[index]}
+                  key={index}
+                  freespace={index === 12}
+                >
+                  {item}
+                </BingoItem>
+              ) : (
+                <BingoItem
+                  onClick={handleMark(index)}
+                  marked={marked[index]}
+                  key={index}
+                  freespace={index === 12}
+                >
+                  <img src="/free.webp" />
+                </BingoItem>
+              )
+            )}
           </div>
         </div>
         <div className="lg:absolute lg:right-0 lg:bottom-0 lg:-mx-64">
           <div className="w-full lg:w-[200px] justify-center flex gap-3 lg:flex-col">
             <div className="w-fit sm:w-full">
-              <Button onClick={handleShuffle}>
+              <Button onClick={() => setShPop(true)}>
                 <FontAwesomeIcon icon={faShuffle} /> Shuffle
               </Button>
             </div>
@@ -172,11 +187,14 @@ function BingoCard() {
           </div>
         </div>
       </div>
+      <div className="w-full mx-auto max-w-[300px] flex justify-center items-center">
+        <Logo fill="#FFB55E" />
+      </div>
       <Bingo bingo={bingo} />
       <Popup isActive={htplay} onClose={() => setHtplay(false)}>
-        <p className="text-purple text-xl font-bold mb-4">How to Play</p>
+        <p className="text-purple text-2xl font-bold mb-4">How to Play</p>
         <p className="font-semibold text-xl">Play in your browser</p>
-        <ol>
+        <ol className="list-decimal list-outside ml-5 [&>li]:my-2">
           <li> Mark squares: Click once to mark, double-click to unmark.</li>
           <li>
             New card: Refresh the page or hit the "Shuffle" button for a fresh
@@ -187,6 +205,32 @@ function BingoCard() {
             and send it to your friends—they'll get their own unique card!
           </li>
         </ol>
+        <p className="font-semibold text-xl mt-4">Play offline</p>
+        <ol className="list-decimal list-outside ml-5 [&>li]:my-2">
+          <li>Download your card: Click the "Download" button to save it.</li>
+          <li>
+            Print or mark digitally: Open the file to print, or use it on your
+            device.
+          </li>
+          <li>
+            Make more cards: Click the "Shuffle" button or refresh the page for
+            a new card, download, and repeat as needed!
+          </li>
+        </ol>
+      </Popup>
+      <Popup isActive={shPop} onClose={() => setShPop(false)}>
+        <p className="text-purple text-2xl font-bold mb-1">
+          Wait! Are you sure you want to shuffle?
+        </p>
+        <p>You’ll lose your progress and generate a new card.</p>
+        <p>
+          If you just want to clear your card, click the marked squares to
+          unmark them instead
+        </p>
+        <div className="flex gap-2 mt-4">
+          <Button onClick={() => setShPop(false)}>Keep Playing</Button>
+          <Button onClick={handleShuffle}>Shuffle</Button>
+        </div>
       </Popup>
     </>
   );

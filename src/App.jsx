@@ -8,9 +8,6 @@ function App() {
   return (
     <>
       <div className="">
-        <h1 className="uppercase text-4xl text-white font-bold text-center">
-          Bingo
-        </h1>
         <BingoCard />
       </div>
     </>

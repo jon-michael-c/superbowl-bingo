@@ -3,6 +3,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        Breve: ["Breve", "sans-serif"],
+      },
       colors: {
         yellow: "#FFB55E",
         midnight: "#33374c",

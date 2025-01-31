@@ -9,7 +9,7 @@ function BingoItem(props) {
       disabled={freespace}
       className={`relative overflow-hidden whitespace-break-spaces cursor-pointer text-[13px] sm:text-[14px] text-midnight text-center flex items-center justify-center aspect-[3/4] sm:aspect-square transition-all border-solid border-[0.5px] border-black disabled:pointer-events-none ${
         marked ? "bg-yellow" : ""
-      } ${freespace ? "font-semibold" : ""}`}
+      } ${freespace ? "bg-opacity-0 font-semibold" : ""}`}
     >
       {children}
     </button>
