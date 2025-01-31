@@ -91,18 +91,34 @@ function BingoCard() {
   }, []);
 
   // Function to shuffle the bingo items
-  const handleShuffle = () => {
-    const bingoItems = new BingoItems();
-    bingoItems.shuffle();
-    setItems(bingoItems.items.slice(0, 25));
-    setMarked(Array(25).fill(false)); // Reset marked cells
-    setMarked((prevMarked) => {
-      const updated = [...prevMarked];
-      updated[12] = true; // Set the center cell as marked (free space)
-      return updated;
-    });
-    setBingo(false); // Reset bingo state
-    setShPop(false);
+  const handleShuffle = (arg) => {
+    const shuffle = () => {
+      const bingoItems = new BingoItems();
+      bingoItems.shuffle();
+      setItems(bingoItems.items.slice(0, 25));
+      setMarked(Array(25).fill(false)); // Reset marked cells
+      setMarked((prevMarked) => {
+        const updated = [...prevMarked];
+        updated[12] = true; // Set the center cell as marked (free space)
+        return updated;
+      });
+      // Reset bingo state
+      setBingo(false);
+    };
+
+    if (!isMarked() || arg) {
+      shuffle();
+      setShPop(false);
+    } else {
+      setShPop(true);
+    }
+  };
+
+  const isMarked = () => {
+    let indices = marked.reduce(function (r, v, i) {
+      return r.concat(v === true ? i : []);
+    }, []);
+    return indices.length > 1;
   };
 
   // Function to save the bingo card as an image
@@ -170,7 +186,7 @@ function BingoCard() {
         <div className="lg:absolute lg:right-0 lg:bottom-0 lg:-mx-64 lg:my-0 mb-4">
           <div className="w-full lg:w-[200px] justify-center flex gap-3 lg:flex-col">
             <div className="w-fit sm:w-full">
-              <Button onClick={() => setShPop(true)}>
+              <Button onClick={() => handleShuffle(false)}>
                 <FontAwesomeIcon icon={faShuffle} /> Shuffle
               </Button>
             </div>
@@ -231,7 +247,7 @@ function BingoCard() {
         </p>
         <div className="flex gap-2 mt-4">
           <Button onClick={() => setShPop(false)}>Keep Playing</Button>
-          <Button onClick={handleShuffle}>Shuffle</Button>
+          <Button onClick={() => handleShuffle(true)}>Shuffle</Button>
         </div>
       </Popup>
     </>
