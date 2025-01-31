@@ -125,10 +125,11 @@ function BingoCard() {
   const handleSaveAsImage = () => {
     if (cardRef.current) {
       html2canvas(cardRef.current).then((canvas) => {
-        canvas.toBlob((blob) => {
-          const url = URL.createObjectURL(blob);
-          window.open(url, "_blank");
-        }, "image/png");
+        const link = document.createElement("a");
+        link.download = "bingo-card.png";
+        link.href = canvas.toDataURL();
+        link.target = "_blank";
+        link.click();
       });
     }
   };
