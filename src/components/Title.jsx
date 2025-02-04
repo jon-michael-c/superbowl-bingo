@@ -5,7 +5,7 @@ export const Title = () => {
     <>
       <div className="flex gap-2 items-center justify-center">
         <img
-          className="w-[23%] max-w-[75px] h-auto sm:max-w-full sm:h-full sm:w-auto"
+          className="w-[23%] max-w-[75px] h-auto sm:max-w-[20%] sm:h-full sm:w-auto"
           src="/stamp.webp"
           alt="stamp"
         />

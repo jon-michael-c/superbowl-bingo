@@ -3,7 +3,10 @@ import React from "react";
 export const Logo = (props) => {
   const { fill } = props;
   return (
-    <div className="w-[150px] sm:w-[250px] mb-4 sm:mb-8">
+    <a
+      href="https://leibowitzdesign.com"
+      className="block w-[150px] sm:w-[250px] mb-4 sm:mb-8"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="100%"
@@ -17,6 +20,6 @@ export const Logo = (props) => {
           fillOpacity="0.9"
         />
       </svg>
-    </div>
+    </a>
   );
 };
