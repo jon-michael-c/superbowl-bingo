@@ -85,7 +85,6 @@ function BingoCard() {
     setItems(bingoItems.items.slice(0, 25));
     setMarked((prevMarked) => {
       const updated = [...prevMarked];
-      updated[12] = true; // Set the center cell as marked (free space)
       return updated;
     });
   }, []);
@@ -99,7 +98,6 @@ function BingoCard() {
       setMarked(Array(25).fill(false)); // Reset marked cells
       setMarked((prevMarked) => {
         const updated = [...prevMarked];
-        updated[12] = true; // Set the center cell as marked (free space)
         return updated;
       });
       // Reset bingo state

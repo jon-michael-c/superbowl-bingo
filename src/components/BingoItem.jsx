@@ -6,9 +6,7 @@ function BingoItem(props) {
   return (
     <button
       onClick={onClick}
-      className={`relative hyphens-auto overflow-hidden whitespace-break-spaces cursor-pointer text-[13px] sm:text-[14px] text-midnight text-center flex items-center justify-center aspect-[3/4] sm:aspect-square transition-all border-solid border-[0.5px] border-black disabled:pointer-events-none  ${
-        freespace ? "bg-opacity-0 font-semibold" : ""
-      }`}
+      className={`relative hyphens-auto overflow-hidden whitespace-break-spaces cursor-pointer text-[13px] sm:text-[14px] text-midnight text-center flex items-center justify-center aspect-[3/4] sm:aspect-square transition-all border-solid border-[0.5px] border-black disabled:pointer-events-none  `}
     >
       <div className="w-[90%]">
         <img
