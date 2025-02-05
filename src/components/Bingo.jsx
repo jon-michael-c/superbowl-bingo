@@ -1,5 +1,4 @@
-import Lottie from "lottie-react";
-import React, { useState } from "react";
+import React from "react";
 import Confettie from "./Confettie";
 import Button from "./Button";
 import { Logo } from "./Logo";
